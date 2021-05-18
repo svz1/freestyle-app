@@ -1,18 +1,12 @@
-import 'package:flutter/material.dart';
-void main()=>runApp(MaterialApp(
-  home:Sampleapp()
-));
-class Sampleapp extends StatelessWidget {
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart'
+void main()=>runApp(MyApp());
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:Text("ID CARD"),
-        centerTitle: true,
-        backgroundColor: Colors.grey[850],
-      ),
-    );
+    return MaterialApp(
+
+    ) ;
   }
 }
-
-    
