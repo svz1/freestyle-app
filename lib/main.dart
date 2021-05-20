@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart'
-void main()=>runApp(MyApp());
+import 'package:flutter/material.dart' ;
 
-class MyApp extends StatelessWidget {
+void main()=>runApp(MaterialApp(
+  home:Home()
+)) ;
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( appBar:appBar(title3
-    )
-
-    ) ;
+    return Scaffold(
+      body:Center(child: Text("hello heyy"))
+      
+    );
   }
 }
