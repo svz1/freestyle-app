@@ -5,6 +5,7 @@ class custombutton extends StatelessWidget {
   final Function onPressed ; 
   final bool outlineBtn ; 
   final bool isloading;
+  
   custombutton({this.text, this.onPressed, this.outlineBtn,this.isloading,}) ; 
   @override
   Widget build(BuildContext context) {

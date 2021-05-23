@@ -20,7 +20,7 @@ class _registerpageState extends State<registerpage> {
           return AlertDialog(
             title: Text("Error"),
             content: Container(
-              child: Text("error"),
+              child: Text(error),
             ),
             actions: [
               FlatButton(
@@ -38,8 +38,8 @@ class _registerpageState extends State<registerpage> {
    Future<String> _createaccount() async {
      try {
        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _registeremail, password: _registerpassword) ;
-       return null ; }
-       on FirebaseAuthException catch(e){
+       return null ; 
+      } on FirebaseAuthException catch(e){
           if (e.code == 'weak-password') {
     return 'The password provided is too weak.';
   } else if (e.code == 'email-already-in-use') {
@@ -47,11 +47,12 @@ class _registerpageState extends State<registerpage> {
    }     return e.message ; 
 
        } catch(e) {
-         return e.toString ;
+         return e.toString() ;
        }
 
      
    }
+     
      void _submitform() async{
        setState((){
          _registerformloading=true ;
@@ -62,9 +63,7 @@ class _registerpageState extends State<registerpage> {
            setState((){
          _registerformloading=false;
        }) ;
-       } else{
-         Navigator.pop(context);
-       }
+       } else {Navigator.pop(context) ; }
 
       
 
@@ -109,6 +108,7 @@ class _registerpageState extends State<registerpage> {
             onSubmitted: (value) {
               _passwordFocusNode.requestFocus() ; 
             },
+            textInputAction: TextInputAction.next,
             ),
             Custominput(hintText: "Password...",
              onChanged: (value) {
@@ -122,6 +122,7 @@ class _registerpageState extends State<registerpage> {
               text: "Create New Account",
               onPressed: () {
                 _submitform() ;
+               
                
                
               },

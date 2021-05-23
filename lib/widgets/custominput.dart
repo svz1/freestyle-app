@@ -6,7 +6,8 @@ class Custominput extends StatelessWidget {
   final Function(String) onSubmitted ; 
   final FocusNode focusNode ;  
   final bool ispassword ; 
-  Custominput({this.hintText,this.onChanged,this.onSubmitted,this.focusNode,this.ispassword});
+  final TextInputAction textInputAction ;
+  Custominput({this.hintText,this.onChanged,this.onSubmitted,this.focusNode,this.ispassword,this.textInputAction});
   @override
   Widget build(BuildContext context) {
     bool _ispassword=ispassword??false ;
@@ -26,6 +27,7 @@ class Custominput extends StatelessWidget {
         focusNode: focusNode,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
+        textInputAction: textInputAction,
         decoration: InputDecoration(border: InputBorder.none,
         hintText:hintText?? "hint Text...",
         contentPadding:EdgeInsets.symmetric(
