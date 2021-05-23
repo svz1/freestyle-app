@@ -45,7 +45,7 @@ class _loginState extends State<login> {
         child: custombutton(
           text: "Createn New Account",
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (Context)=>registerpage()
+            Navigator.push(context, MaterialPageRoute(builder: (Context)=>RegisterPage()
                 )
                 ) ;
           },
