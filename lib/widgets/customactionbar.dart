@@ -11,7 +11,7 @@ class customactionbar extends StatelessWidget {
   Widget build(BuildContext context) {
     bool _hasbackarrow=hasbackarrow??false ;
     bool _hastitle=hastitle??true ;
-    bool _hasbackground=hasbackground??true
+    bool _hasbackground=hasbackground?? true ;
     return Container(
       decoration: BoxDecoration(
         gradient: _hasbackground? LinearGradient(

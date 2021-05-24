@@ -1,7 +1,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/widgets/customactionbar.dart';
+import 'package:flutter_app2/widgets/imageswipe.dart';
+import 'package:flutter_app2/widgets/productsize.dart';
 
 class productpage extends StatefulWidget {
   final String productid;
@@ -12,6 +15,16 @@ class productpage extends StatefulWidget {
 
 class _productpageState extends State<productpage> {
   final CollectionReference _productsref=FirebaseFirestore.instance.collection("products") ;
+
+  final CollectionReference _usersref=FirebaseFirestore.instance.collection("users") ;
+  User _user=FirebaseAuth.instance.currentUser ;
+  Future _addtocart() {
+    return _usersref
+        .doc(_user.uid)
+        .collection("cart")
+        .doc(widget.productid)
+         .set({"size":1 } );  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +42,21 @@ class _productpageState extends State<productpage> {
 
     if(snapshot.connectionState==ConnectionState.done) {
       Map<String,dynamic> documentData=snapshot.data.data();
+      List imageList=documentData['images'] ;
+      List productsizes=documentData['size'] ;
+
       return ListView(
+        padding: EdgeInsets.all(0),
         children: [
 
-          Container(
-            height:300,
-            child: Image.network("${documentData['images'][0]}"
-            ),
-          ),
+          imageswipe(imagelist:imageList,),
+
           Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 4,
-              horizontal: 24,
+            padding: const EdgeInsets.only(
+              top:24,
+              left: 24,
+              right: 24,
+              bottom: 4,
             ),
             child: Text("${documentData['name']}",
             style: TextStyle(fontWeight: FontWeight.bold,fontSize: 50),),
@@ -72,7 +88,49 @@ class _productpageState extends State<productpage> {
               vertical: 0,
               horizontal: 24,
             ),
-            child: Text("Select Size ",style: TextStyle(fontWeight: FontWeight.bold),),
+            child: Text("Select Size ",style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          prosize(
+            productsizes: productsizes,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Row(
+              mainAxisAlignment:MainAxisAlignment.start,
+              mainAxisSize:MainAxisSize.max,
+              children: [
+                Container(
+                  width :42,
+                  height:42,
+                  decoration:BoxDecoration(
+                 color:Colors.grey,
+                    borderRadius: BorderRadius.circular(12),
+                 ),
+                  alignment:Alignment.center,
+                  child: Image(
+                    image:AssetImage("assets/images/tab_saved.png",),
+                        width:13,
+                    height: 21,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    margin: EdgeInsets.only(
+                      left: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(12)
+                    ),
+                    alignment: Alignment.center,
+                    child: Text("Add To Cart",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600),),
+                  ),
+                )
+              ],
+            ),
           )
         ],
       )
@@ -86,6 +144,7 @@ class _productpageState extends State<productpage> {
              }
     ),
           customactionbar(
+            hasbackground: false,
             hasbackarrow: true,
             hastitle: false,
           )
