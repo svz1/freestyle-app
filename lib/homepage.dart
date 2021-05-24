@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/constants.dart';
+import 'package:flutter_app2/widgets/bottomtabs.dart';
 
 class homePage extends StatefulWidget {
   @override
@@ -8,17 +9,73 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  PageController __tabspagecontroller ;
+  int _selectedtab=0 ; 
+   
+
   @override
+  void initState() {
+   __tabspagecontroller=PageController();
+    super.initState();
+  }
+   
+   @override
+  void dispose() {
+    __tabspagecontroller.dispose() ;
+    super.dispose();
+  }
+
+  @override
+   
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: FlatButton(
-          child: Text("Logout"),
-          onPressed: () {
-            FirebaseAuth.instance.signOut() ; 
-          },
-        ) )
-      
+     return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+                     child: PageView(
+                       controller: __tabspagecontroller,
+                       onPageChanged: (num)  { 
+                         setState(() {
+                           _selectedtab=num ; 
+                         });
+
+                       },
+              children: [
+              Container(child: Center(
+                child:Text("Homepage"),
+              ),
+              ),
+
+               Container(child: Center(
+                child:Text("Searchpage"),
+              ),
+              ),
+
+               Container(child: Center(
+                child:Text("savedpage"),
+              ),
+              )
+
+
+                ]
+                  ),
+          ),
+           
+          bottomtabs(
+            selectedtab:_selectedtab,
+            tabpressed: (num) {
+              setState(() {
+                           __tabspagecontroller.animateToPage(num, duration: Duration(microseconds:300 ), curve: Curves.easeOutCubic) ;
+                         });
+
+            },
+          )
+         
+        ],
+        
+      ),
+
     );
   }
-}
+} 

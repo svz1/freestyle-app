@@ -13,8 +13,13 @@ Future<void> main() async {
    Widget build(BuildContext context) {
      return MaterialApp(
        
-       
-       
+       debugShowCheckedModeBanner: false,
+       theme:ThemeData(
+         accentColor:Colors.orange[800]
+
+        ),
+        
+      
        
        home: LandingPage(),
        
