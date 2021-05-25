@@ -2,7 +2,8 @@
 
 class prosize extends StatefulWidget {
   final List productsizes ;
-  prosize({this.productsizes}) ;
+  final Function(String) onSelected ;
+  prosize({this.productsizes,this.onSelected}) ;
   @override
   _prosizeState createState() => _prosizeState();
 }
@@ -21,6 +22,7 @@ class _prosizeState extends State<prosize> {
               for(var i=0;i<widget.productsizes.length ;i++)
                 GestureDetector(
                   onTap: () {
+                    widget.onSelected("${widget.productsizes[i]}") ;
                   setState(() {
                     _selected=i ;
                   }) ;

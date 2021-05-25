@@ -18,12 +18,15 @@ class _productpageState extends State<productpage> {
 
   final CollectionReference _usersref=FirebaseFirestore.instance.collection("users") ;
   User _user=FirebaseAuth.instance.currentUser ;
+  String _selectedproductsize="0" ;
   Future _addtocart() {
     return _usersref
         .doc(_user.uid)
         .collection("cart")
         .doc(widget.productid)
-         .set({"size":1 } );  }
+         .set({"size":_selectedproductsize } );  }
+
+         final SnackBar _snackbar=SnackBar(content: Text("Product added to the cart"),) ;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _productpageState extends State<productpage> {
       Map<String,dynamic> documentData=snapshot.data.data();
       List imageList=documentData['images'] ;
       List productsizes=documentData['size'] ;
+      _selectedproductsize=productsizes[0];
 
       return ListView(
         padding: EdgeInsets.all(0),
@@ -93,6 +97,9 @@ class _productpageState extends State<productpage> {
           ),
           prosize(
             productsizes: productsizes,
+            onSelected: (size) {
+              _selectedproductsize=size;
+            }
           ),
           Padding(
             padding: const EdgeInsets.all(18.0),
@@ -115,18 +122,24 @@ class _productpageState extends State<productpage> {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    height: 45,
-                    width: 45,
-                    margin: EdgeInsets.only(
-                      left: 5,
+                  child: GestureDetector(
+                    onTap: () async {
+                      _addtocart();
+                      Scaffold.of(context).showSnackBar(_snackbar);
+                    },
+                    child: Container(
+                      height: 45,
+                      width: 45,
+                      margin: EdgeInsets.only(
+                        left: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                      alignment: Alignment.center,
+                      child: Text("Add To Cart",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600),),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(12)
-                    ),
-                    alignment: Alignment.center,
-                    child: Text("Add To Cart",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600),),
                   ),
                 )
               ],
