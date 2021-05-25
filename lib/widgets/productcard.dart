@@ -28,7 +28,7 @@ import 'package:flutter_app2/screens/product.dart';
         height: 350,
         margin:EdgeInsets.symmetric(
           vertical:12,
-          horizontal:24,
+          horizontal:30
         ),
         child: Stack(
           children : [

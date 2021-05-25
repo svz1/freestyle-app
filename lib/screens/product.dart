@@ -25,9 +25,15 @@ class _productpageState extends State<productpage> {
         .doc(_firebaseservices.getUserId())
         .collection("cart")
         .doc(widget.productid)
-         .set({"size":_selectedproductsize } );  }
-
-         final SnackBar _snackbar=SnackBar(content: Text("Product added to the cart"),) ;
+         .set({"size":_selectedproductsize } );
+  }
+  Future _addtosaved() {
+    return _firebaseservices.usersref
+        .doc(_firebaseservices.getUserId())
+        .collection("saved")
+        .doc(widget.productid)
+        .set({"size":_selectedproductsize } ); }
+    final SnackBar _snackbar=SnackBar(content: Text("Product added to the cart"),) ;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +116,7 @@ class _productpageState extends State<productpage> {
               children: [
                 GestureDetector(
                   onTap:()  async{
-                    await _addtocart();
+                    await _addtosaved();
                     Scaffold.of(context).showSnackBar(_snackbar);
 
                   },
