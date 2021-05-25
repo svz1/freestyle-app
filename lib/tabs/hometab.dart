@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/screens/product.dart';
+import 'package:flutter_app2/services/firebase_service.dart';
 import 'package:flutter_app2/widgets/customactionbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' ;
 
 class hometab extends StatelessWidget {
+
 final CollectionReference _productsref=FirebaseFirestore.instance.collection("products") ;
 
   @override

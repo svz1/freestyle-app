@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/screens/cartpage.dart';
+import 'package:flutter_app2/services/firebase_service.dart';
 
 class customactionbar extends StatelessWidget {
   @override
@@ -10,16 +12,19 @@ class customactionbar extends StatelessWidget {
   final bool hasbackground;
 
   customactionbar({this.title,this.hasbackarrow,this.hastitle,this.hasbackground}) ;
+  Firebaseservices _firebaseservices=Firebaseservices();
+
+  final CollectionReference _usersref=FirebaseFirestore.
+  instance.
+  collection("users") ;
+
+
   @override
   Widget build(BuildContext context) {
     bool _hasbackarrow=hasbackarrow??false ;
     bool _hastitle=hastitle??true ;
     bool _hasbackground=hasbackground?? true ;
 
-    final CollectionReference _usersref=FirebaseFirestore.
-    instance.
-    collection("users") ;
-    User _user=FirebaseAuth.instance.currentUser;
     return Container(
       decoration: BoxDecoration(
         gradient: _hasbackground? LinearGradient(
@@ -62,25 +67,31 @@ class customactionbar extends StatelessWidget {
           ),
                if(_hastitle)
           Text(title??"Action Bar",style: TextStyle(fontWeight:FontWeight.bold),),
-          Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              color: Colors.black,borderRadius: BorderRadius.circular(8),
-            ),
-            alignment:Alignment.center,
-            child: StreamBuilder(
-              stream: _usersref.doc(_user.uid).collection("cart").snapshots(),
-              builder: (context,snapshot) {
-                int _totalitems=0;
-                if(snapshot.connectionState==ConnectionState.active) {
-                  List _documents=snapshot.data.docs;
-                  _totalitems=_documents.length;
-                }
-                return Text("$_totalitems"??"0",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600,color:Colors.white,
-                ),
-                );
-              },
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>cartpage(),
+              ));
+            },
+            child: Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: Colors.black,borderRadius: BorderRadius.circular(8),
+              ),
+              alignment:Alignment.center,
+              child: StreamBuilder(
+                stream: _usersref.doc(_firebaseservices.getUserId()).collection("cart").snapshots(),
+                builder: (context,snapshot) {
+                  int _totalitems=0;
+                  if(snapshot.connectionState==ConnectionState.active) {
+                    List _documents=snapshot.data.docs;
+                    _totalitems=_documents.length;
+                  }
+                  return Text("$_totalitems"??"0",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600,color:Colors.white,
+                  ),
+                  );
+                },
+              ),
             ),
           )
         ],

@@ -49,7 +49,7 @@ class _bottomtabsState extends State<bottomtabs> {
           },),
           bottomtabsbtn(imagePath:"assets/images/tab_logout.png",
           selected:_selectedtab==3?true:false,onPressed: () {
-           FirebaseAuth.instance.signOut() ; 
+           FirebaseAuth.instance.signOut() ;
 
           },)
 
