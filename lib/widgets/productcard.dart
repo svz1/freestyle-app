@@ -28,7 +28,7 @@ import 'package:flutter_app2/screens/product.dart';
         height: 350,
         margin:EdgeInsets.symmetric(
           vertical:12,
-          horizontal:30
+          horizontal:24
         ),
         child: Stack(
           children : [
@@ -51,8 +51,8 @@ import 'package:flutter_app2/screens/product.dart';
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   children:[
-                    Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17),),
-                    SizedBox(width:150,),
+                    Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize:23),),
+                    SizedBox(width:120,),
 
 
                     Text(price,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.deepOrange),),

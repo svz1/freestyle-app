@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/screens/register.dart';
+import 'file:///C:/Users/USER/AndroidStudioProjects/flutter_app2/lib/register.dart';
 import 'package:flutter_app2/widgets/custombutton.dart';
 import 'package:flutter_app2/widgets/custominput.dart';
 
@@ -101,7 +101,7 @@ class _loginState extends State<login> {
           children:[ 
             Padding(
               padding: const EdgeInsets.fromLTRB(0,20,0,0),
-              child: Text("Welcome User,\n Login To your Account",textAlign:TextAlign.center,style:TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.white),),
+              child: Text("Welcome To FreeStyle",textAlign:TextAlign.center,style:TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.white),),
             ),
      Column(
           children: [
