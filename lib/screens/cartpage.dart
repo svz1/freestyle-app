@@ -56,13 +56,16 @@ class _cartpageState extends State<cartpage> {
                               if(productSnap.connectionState==ConnectionState.done) {
                                 Map _productMap=productSnap.data.data() ;
                                 return Padding(
+
                                   padding: const EdgeInsets.fromLTRB(
                                     0,80,0,0
                                   ),
                                   child: Row(
+
                                     mainAxisAlignment:
                                     MainAxisAlignment.start,
                                     children: [
+
                                       Container(
                                         width: 90,
                                         height: 90,

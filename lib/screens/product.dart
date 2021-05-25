@@ -19,6 +19,7 @@ class _productpageState extends State<productpage> {
 
 
   String _selectedproductsize="0" ;
+
   Future _addtocart() {
     return _firebaseservices.usersref
         .doc(_firebaseservices.getUserId())
@@ -107,24 +108,31 @@ class _productpageState extends State<productpage> {
               mainAxisAlignment:MainAxisAlignment.start,
               mainAxisSize:MainAxisSize.max,
               children: [
-                Container(
-                  width :42,
-                  height:42,
-                  decoration:BoxDecoration(
-                 color:Colors.grey,
-                    borderRadius: BorderRadius.circular(12),
-                 ),
-                  alignment:Alignment.center,
-                  child: Image(
-                    image:AssetImage("assets/images/tab_saved.png",),
-                        width:13,
-                    height: 21,
+                GestureDetector(
+                  onTap:()  async{
+                    await _addtocart();
+                    Scaffold.of(context).showSnackBar(_snackbar);
+
+                  },
+                  child: Container(
+                    width :42,
+                    height:42,
+                    decoration:BoxDecoration(
+                   color:Colors.grey,
+                      borderRadius: BorderRadius.circular(12),
+                   ),
+                    alignment:Alignment.center,
+                    child: Image(
+                      image:AssetImage("assets/images/tab_saved.png",),
+                          width:13,
+                      height: 21,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-                      _addtocart();
+                      await _addtocart();
                       Scaffold.of(context).showSnackBar(_snackbar);
                     },
                     child: Container(

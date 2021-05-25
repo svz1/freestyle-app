@@ -17,7 +17,7 @@ class Custominput extends StatelessWidget {
          horizontal:24,
       ),
       decoration: BoxDecoration(
-       color:Colors.grey[700],
+       color:Colors.grey[300],
        borderRadius: BorderRadius.circular(12)
 
         ),

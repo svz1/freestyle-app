@@ -7,6 +7,7 @@ import 'package:flutter_app2/tabs/savedtab.dart';
 import 'package:flutter_app2/tabs/searchtab.dart';
 import 'package:flutter_app2/widgets/bottomtabs.dart';
 
+
 class homePage extends StatefulWidget {
   @override
   _homePageState createState() => _homePageState();

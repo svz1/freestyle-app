@@ -4,10 +4,11 @@ import 'package:flutter_app2/screens/product.dart';
 import 'package:flutter_app2/services/firebase_service.dart';
 import 'package:flutter_app2/widgets/customactionbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' ;
+import 'package:flutter_app2/widgets/productcard.dart';
 
 class hometab extends StatelessWidget {
 
-final CollectionReference _productsref=FirebaseFirestore.instance.collection("products") ;
+  final CollectionReference _productsref=FirebaseFirestore.instance.collection("products") ;
 
   @override
   Widget build(BuildContext context) {
@@ -33,54 +34,12 @@ final CollectionReference _productsref=FirebaseFirestore.instance.collection("pr
 
                   ),
                   children: snapshot.data.docs.map((document) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,MaterialPageRoute(
-                          builder: (context)=>productpage(productid: document.id,),
-                        )
-                        ) ;
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12)
-                        ),
-                        height: 350,
-                        margin:EdgeInsets.symmetric(
-                          vertical:12,
-                          horizontal:24,
-                        ),
-        child: Stack(
-          children : [
-            Container(
-              height:350,
-              child: ClipRRect(
-                   borderRadius: BorderRadius.circular(12),
-                   child: Image.network(
-                                "${document.data()['images'][0]}",
-                                    fit:BoxFit.cover,
-                   ),
-                 ),
-            ),
-          Positioned(
+                    return productcard(
+                      title: document.data()['name'],
+                      imageUrl: document.data()['images'][0],
+                      price: "\$${document.data()['price']}",
+                      productId: document.id,
 
-            bottom: 0,
-            left:-10,
-            right:0,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children:[
-                  Text(document.data()['name']??"ProductName",style: TextStyle(fontWeight:FontWeight.bold),
-                  ),
-
-                  Text("                                     Rs : ""${document.data()['price']}"??"price",style: TextStyle(color: Colors.amber,fontWeight: FontWeight.bold),),
-                ],
-              ),
-            ),
-          )
-                      ],
-        ),
-                      ),
                     );
 
 
